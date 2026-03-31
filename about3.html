@@ -1,0 +1,828 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Azka Flow | Cute Profile + Side Column + 3 Screen Layouts</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fef5e8 0%, #ffe6f0 100%);
+            min-height: 100vh;
+            padding: 16px;
+            transition: background 0.3s;
+        }
+
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 248, 245, 0.7);
+            backdrop-filter: blur(3px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .app-layout {
+            display: flex;
+            flex-direction: row;
+            min-height: 88vh;
+        }
+
+        /* ========= LEFT SIDEBAR - CUTE STYLE ========= */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 245, 240, 0.98);
+            backdrop-filter: blur(12px);
+            border-radius: 0 1.8rem 1.8rem 0;
+            box-shadow: 6px 0 18px rgba(255, 140, 100, 0.08);
+            padding: 2rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            border-right: 1px solid rgba(255, 180, 140, 0.3);
+            transition: all 0.25s;
+        }
+
+        /* Profile Section - Cute Girl Image */
+        .profile-section {
+            text-align: center;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px dashed #ffcdb0;
+        }
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        .avatar-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 12px 24px -8px rgba(255, 120, 80, 0.3);
+            border: 4px solid white;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffb6c1, #ff9eb5);
+        }
+        .avatar-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+        .avatar-wrapper:hover .avatar-img {
+            transform: scale(1.03) rotate(2deg);
+        }
+        .online-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 6px;
+            background: #2ecc71;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px #fff0e6;
+        }
+        .profile-section h2 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #c45c3a, #e87a5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: 8px;
+        }
+        .profile-section p {
+            font-size: 0.78rem;
+            color: #b67b62;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .role-tag {
+            background: #ffe4d6;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #d97a54;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex: 1;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            border-radius: 1.2rem;
+            text-decoration: none;
+            color: #7a5a4a;
+            font-weight: 500;
+            transition: all 0.25s;
+            background: transparent;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .nav-item i {
+            width: 28px;
+            font-size: 1.25rem;
+            color: #e89a7a;
+            transition: 0.2s;
+        }
+        .nav-item:hover {
+            background: #ffede3;
+            transform: translateX(5px);
+            color: #c45c3a;
+        }
+        .nav-item.active {
+            background: linear-gradient(95deg, #ffede3, #fff5ef);
+            color: #d2694a;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            border-left: 4px solid #ff8c5a;
+        }
+        .nav-item.active i {
+            color: #ff8c5a;
+        }
+        .nav-item.logout-item {
+            margin-top: auto;
+            border-top: 1px solid #ffddcc;
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Screen Layout Switcher */
+        .layout-switcher {
+            background: rgba(255, 245, 235, 0.95);
+            padding: 8px 16px;
+            border-radius: 60px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 12px 20px 0 20px;
+            border: 1px solid #ffd9c4;
+            flex-wrap: wrap;
+        }
+        .layout-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #b46a4a;
+        }
+        .layout-btn.active-layout {
+            background: #ff8c5a;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .layout-btn:hover:not(.active-layout) {
+            background: #ffe0d0;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 2rem;
+            background: rgba(255, 250, 245, 0.5);
+            backdrop-filter: blur(2px);
+            overflow-y: auto;
+        }
+
+        .view-panel {
+            display: none;
+            animation: fadeSlide 0.25s ease;
+        }
+        .view-panel.active-view {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: 1.8rem;
+            padding: 1.6rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.02), 0 0 0 1px #ffe8dd;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 1.4rem;
+            padding: 1.2rem;
+            border: 1px solid #ffe0d0;
+            transition: 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 120, 80, 0.1);
+        }
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .project-item {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            border-radius: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border: 1px solid #ffe0d0;
+        }
+        button {
+            background: #e88a62;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 2rem;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #d46a42;
+            transform: scale(0.97);
+        }
+        .settings-group {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .toggle-switch {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        input[type="text"], select {
+            padding: 10px 16px;
+            border-radius: 2rem;
+            border: 1px solid #ffd0bc;
+            width: 100%;
+            max-width: 260px;
+        }
+        .notification {
+            background: #fff3ec;
+            border-radius: 1rem;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #b45a3a;
+        }
+
+        /* 3 Screen Layouts */
+        body.layout-iphone .sidebar {
+            width: 260px;
+        }
+        body.layout-ipad .sidebar {
+            width: 270px;
+            background: rgba(255, 245, 240, 0.98);
+        }
+        body.layout-ipad .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        body.layout-laptop .sidebar {
+            width: 300px;
+            padding: 2rem 1.5rem;
+        }
+        body.layout-laptop .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Responsive */
+        @media (max-width: 880px) {
+            .app-layout {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-radius: 1.5rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(0,0,0,0.08);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 1.2rem;
+                gap: 1rem;
+            }
+            .profile-section {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+                border-bottom: none;
+                padding-bottom: 0;
+                width: auto;
+            }
+            .avatar-img {
+                width: 55px;
+                height: 55px;
+            }
+            .profile-section h2 {
+                font-size: 1.1rem;
+                margin-top: 0;
+            }
+            .nav-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+                justify-content: flex-start;
+                flex: 0 1 auto;
+            }
+            .nav-item {
+                width: auto;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+            .nav-item.logout-item {
+                margin-top: 0;
+                border-top: none;
+                margin-left: auto;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            body.layout-ipad .stats-grid,
+            body.layout-laptop .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 580px) {
+            body {
+                padding: 12px;
+            }
+            .sidebar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+                padding: 1.2rem;
+            }
+            .profile-section {
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+                gap: 8px;
+                border-bottom: 1px solid #ffddcc;
+                padding-bottom: 12px;
+            }
+            .profile-section p {
+                justify-content: center;
+            }
+            .nav-menu {
+                flex-direction: column;
+                width: 100%;
+                gap: 6px;
+            }
+            .nav-item {
+                width: 100%;
+                justify-content: flex-start;
+                padding: 10px 14px;
+            }
+            .nav-item.logout-item {
+                margin-left: 0;
+                margin-top: 6px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-content {
+                padding: 1.2rem;
+            }
+        }
+
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 1rem;
+            color: #b68b72;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .layout-badge {
+            font-size: 0.7rem;
+            background: #ffede3;
+            border-radius: 20px;
+            padding: 4px 12px;
+            display: inline-block;
+            color: #d2694a;
+        }
+        .profile-img-large {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffc8b0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .cute-emoji {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body class="layout-iphone">
+<div class="dashboard">
+    <!-- 3 Screen Layout Switcher -->
+    <div class="layout-switcher">
+        <span style="font-size:0.75rem; align-self:center;"><i class="fas fa-heart" style="color:#ff8c5a;"></i> Screen Layouts:</span>
+        <button class="layout-btn active-layout" data-layout="iphone">📱 iPhone</button>
+        <button class="layout-btn" data-layout="ipad">📟 iPad</button>
+        <button class="layout-btn" data-layout="laptop">💻 Laptop</button>
+    </div>
+    <div class="app-layout">
+        <!-- LEFT SIDEBAR - CUTE GIRL PROFILE -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="avatar-wrapper">
+                    <div class="avatar-img">
+                        <!-- CUTE GIRL IMAGE - Beautiful cheerful avatar -->
+                        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140047.png" alt="Cute Azka" id="cuteProfileImg">
+                    </div>
+                    <div class="online-badge"></div>
+                </div>
+                <div>
+                    <h2>Azka <span style="font-weight: 500;">Ehsan</span> <span class="cute-emoji">🌸</span></h2>
+                    <p><i class="fas fa-map-marker-alt"></i> Creative Director <span class="role-tag"><i class="fas fa-star"></i> Superstar</span></p>
+                </div>
+            </div>
+
+            <!-- VERTICAL NAVIGATION MENU - COLUMN VISE -->
+            <div class="nav-menu">
+                <button class="nav-item active" data-view="home">
+                    <i class="fas fa-home"></i> <span>Home</span>
+                </button>
+                <button class="nav-item" data-view="projects">
+                    <i class="fas fa-folder-open"></i> <span>Projects</span>
+                </button>
+                <button class="nav-item" data-view="settings">
+                    <i class="fas fa-sliders-h"></i> <span>Settings</span>
+                </button>
+                <button class="nav-item" data-view="profile">
+                    <i class="fas fa-user-circle"></i> <span>Profile</span>
+                </button>
+                <button class="nav-item" data-view="insights">
+                    <i class="fas fa-chart-line"></i> <span>Insights</span>
+                </button>
+                <button class="nav-item logout-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HOME View -->
+            <div id="homeView" class="view-panel active-view">
+                <div class="welcome-card">
+                    <h1 style="font-size: 1.7rem; font-weight: 700;">✨ Welcome back, Azka! <span style="display:inline-block;">🎀</span></h1>
+                    <p style="margin-top: 8px; color:#c48a6a;">Your cute creative command center — manage projects, settings, and insights.</p>
+                    <div class="layout-badge" style="margin-top: 12px;">
+                        <i class="fas fa-columns"></i> Side Column Active | 
+                        <span id="currentLayoutName">iPhone</span> Mode
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card"><i class="fas fa-rocket" style="font-size: 2rem; color:#ff8c5a;"></i><h3>Active Projects</h3><p style="font-size: 2rem; font-weight: 700;">4</p></div>
+                    <div class="stat-card"><i class="fas fa-users" style="font-size: 2rem; color:#e88a62;"></i><h3>Team Members</h3><p style="font-size: 2rem; font-weight: 700;">12</p></div>
+                    <div class="stat-card"><i class="fas fa-calendar-check" style="font-size: 2rem; color:#d97a54;"></i><h3>Due Tasks</h3><p style="font-size: 2rem; font-weight: 700;">8</p></div>
+                </div>
+                <div class="notification">
+                    <i class="fas fa-bell"></i> 🔔 New design review for "Azka Portfolio" — check now! 💖
+                </div>
+            </div>
+
+            <!-- PROJECTS View -->
+            <div id="projectsView" class="view-panel">
+                <div class="welcome-card">
+                    <h2><i class="fas fa-code-branch"></i> Your Active Projects ✨</h2>
+                    <p>Track progress and view details.</p>
+                </div>
+                <div class="project-list">
+                    <div class="project-item">
+                        <div><strong>🌟 Dashboard Redesign</strong><br><span style="font-size: 0.75rem;">UI/UX · Due: May 15</span></div>
+                        <button class="project-action" data-project="Dashboard Redesign">View Details</button>
+                    </div>
+                    <div class="project-item">
+                        <div><strong>🚀 Mobile App v2.0</strong><br><span style="font-size: 0.75rem;">Development · Progress 68%</span></div>
+                        <button class="project-action" data-project="Mobile App v2.0">View Details</button>
+                    </div>
+                    <div class="project-item">
+                        <div><strong>🎨 Azka Portfolio 2025</strong><br><span style="font-size: 0.75rem;">Creative · In review</span></div>
+                        <button class="project-action" data-project="Azka Portfolio">View Details</button>
+                    </div>
+                    <div class="project-item">
+                        <div><strong>📊 Analytics Platform</strong><br><span style="font-size: 0.75rem;">Data Viz · Beta phase</span></div>
+                        <button class="project-action" data-project="Analytics Platform">View Details</button>
+                    </div>
+                </div>
+                <div id="projectMessage" class="notification" style="margin-top: 16px; display: none;"></div>
+            </div>
+
+            <!-- SETTINGS View -->
+            <div id="settingsView" class="view-panel">
+                <div class="settings-group">
+                    <h3><i class="fas fa-cog"></i> Preferences</h3>
+                    <div class="toggle-switch">
+                        <span><i class="fas fa-envelope"></i> Email Notifications</span>
+                        <label><input type="checkbox" id="emailToggle" checked> Enable</label>
+                    </div>
+                    <div class="toggle-switch">
+                        <span><i class="fas fa-moon"></i> Dark Mode</span>
+                        <label><input type="checkbox" id="darkModeToggle"> Activate</label>
+                    </div>
+                    <div class="toggle-switch">
+                        <span><i class="fas fa-save"></i> Auto-save Projects</span>
+                        <label><input type="checkbox" id="autoSaveToggle" checked> ON</label>
+                    </div>
+                    <hr style="margin: 1rem 0;">
+                    <div>
+                        <label><i class="fas fa-user-edit"></i> Display Name</label>
+                        <input type="text" id="usernameInput" value="Azka Ehsan">
+                        <button id="updateUsernameBtn" style="margin-top: 12px;">Update Name</button>
+                    </div>
+                    <div id="settingsFeedback" class="notification" style="display: none;"></div>
+                </div>
+                <div class="settings-group">
+                    <h4><i class="fas fa-globe"></i> Language</h4>
+                    <select id="langSelect">
+                        <option value="English">English (EN)</option>
+                        <option value="Urdu">Urdu (UR)</option>
+                        <option value="Arabic">العربية</option>
+                    </select>
+                    <p id="langMsg" style="margin-top: 10px; font-size: 0.8rem;"></p>
+                </div>
+            </div>
+
+            <!-- PROFILE View - Cute Azka with adorable image -->
+            <div id="profileView" class="view-panel">
+                <div class="welcome-card">
+                    <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140047.png" alt="Azka Ehsan" class="profile-img-large" id="profileLargeImg">
+                        <div>
+                            <h2 id="profileNameDisplay">Azka Ehsan <span>🎀</span></h2>
+                            <p><i class="fas fa-envelope"></i> azka.ehsan@creativeflow.com</p>
+                            <p><i class="fas fa-calendar-alt"></i> Member since March 2025</p>
+                            <span class="role-tag"><i class="fas fa-palette"></i> Creative Director & Artist</span>
+                        </div>
+                    </div>
+                    <hr style="margin: 20px 0;">
+                    <h4>🌸 About Azka Ehsan</h4>
+                    <p>Azka is a passionate creative director who loves designing beautiful, user-friendly experiences. She believes in adding a touch of cuteness to everything she creates! When not designing, she enjoys painting, bubble tea, and spreading positive vibes. ✨</p>
+                    <button id="editProfileBtn" style="margin-top: 18px;"><i class="fas fa-edit"></i> Edit Profile</button>
+                    <div id="profileFeedback" class="notification" style="margin-top: 14px; display: none;"></div>
+                </div>
+            </div>
+
+            <!-- INSIGHTS View -->
+            <div id="insightsView" class="view-panel">
+                <div class="welcome-card">
+                    <h3><i class="fas fa-chart-line"></i> Weekly Insights 📈</h3>
+                    <p>Productivity +18% compared to last month. You're doing amazing! 💪</p>
+                    <div style="background: #fff3ec; border-radius: 1.2rem; padding: 1rem; margin-top: 1rem;">
+                        <div>✅ Completed tasks: 24</div>
+                        <div>⭐ Design reviews: 8</div>
+                        <div>📅 Upcoming deadlines: 3</div>
+                    </div>
+                    <button id="refreshInsights" style="margin-top: 18px;"><i class="fas fa-sync-alt"></i> Refresh Stats</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>© 2025 Azka Ehsan — Cute Profile 🌸 | Side Column Menu | 3 Screen Layouts: iPhone · iPad · Laptop</footer>
+</div>
+
+<script>
+    // 3 SCREEN LAYOUT SWITCHER - Working properly
+    const layoutButtons = document.querySelectorAll('.layout-btn');
+    const bodyEl = document.body;
+    const layoutNameSpan = document.getElementById('currentLayoutName');
+    
+    function setLayout(layoutType) {
+        bodyEl.classList.remove('layout-iphone', 'layout-ipad', 'layout-laptop');
+        bodyEl.classList.add(`layout-${layoutType}`);
+        
+        layoutButtons.forEach(btn => {
+            btn.classList.remove('active-layout');
+            if(btn.getAttribute('data-layout') === layoutType) {
+                btn.classList.add('active-layout');
+            }
+        });
+        
+        let displayName = '';
+        if(layoutType === 'iphone') displayName = 'iPhone (Compact)';
+        else if(layoutType === 'ipad') displayName = 'iPad (Optimized)';
+        else displayName = 'Laptop (Widescreen)';
+        
+        if(layoutNameSpan) layoutNameSpan.innerText = displayName;
+        
+        // Cute toast message
+        const toast = document.createElement('div');
+        toast.style.position = 'fixed';
+        toast.style.bottom = '70px';
+        toast.style.left = '20px';
+        toast.style.background = '#e88a62';
+        toast.style.color = 'white';
+        toast.style.padding = '8px 18px';
+        toast.style.borderRadius = '40px';
+        toast.style.fontSize = '0.75rem';
+        toast.style.zIndex = '999';
+        toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+        toast.innerHTML = `🌸 ${displayName} Mode Active | Side Column Menu`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 1800);
+    }
+    
+    layoutButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const layout = btn.getAttribute('data-layout');
+            if(layout) setLayout(layout);
+        });
+    });
+    
+    // Views mapping
+    const views = {
+        home: document.getElementById('homeView'),
+        projects: document.getElementById('projectsView'),
+        settings: document.getElementById('settingsView'),
+        profile: document.getElementById('profileView'),
+        insights: document.getElementById('insightsView')
+    };
+    const navButtons = document.querySelectorAll('.nav-item[data-view]');
+    
+    function activateView(viewId) {
+        Object.keys(views).forEach(key => {
+            if(views[key]) views[key].classList.remove('active-view');
+        });
+        if(views[viewId]) views[viewId].classList.add('active-view');
+        navButtons.forEach(btn => {
+            const btnView = btn.getAttribute('data-view');
+            if(btnView === viewId) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+    
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const viewName = btn.getAttribute('data-view');
+            if(viewName && views[viewName]) activateView(viewName);
+        });
+    });
+    
+    // Project actions
+    const projectActions = document.querySelectorAll('.project-action');
+    const projectMsgDiv = document.getElementById('projectMessage');
+    projectActions.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const proj = btn.getAttribute('data-project');
+            projectMsgDiv.style.display = 'block';
+            projectMsgDiv.innerHTML = `<i class="fas fa-heart"></i> Opening "${proj}" — more cute details coming soon! ✨`;
+            setTimeout(() => { projectMsgDiv.style.display = 'none'; }, 2000);
+        });
+    });
+    
+    // Settings functionality
+    const emailToggle = document.getElementById('emailToggle');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const autoSaveToggle = document.getElementById('autoSaveToggle');
+    const usernameInput = document.getElementById('usernameInput');
+    const updateUsernameBtn = document.getElementById('updateUsernameBtn');
+    const settingsFeedback = document.getElementById('settingsFeedback');
+    const langSelect = document.getElementById('langSelect');
+    const langMsg = document.getElementById('langMsg');
+    const profileNameDisplay = document.getElementById('profileNameDisplay');
+    const sidebarNameH2 = document.querySelector('.profile-section h2');
+    
+    function showSettingsMsg(msg) {
+        settingsFeedback.style.display = 'block';
+        settingsFeedback.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+        setTimeout(() => { settingsFeedback.style.display = 'none'; }, 2000);
+    }
+    
+    if(emailToggle) {
+        emailToggle.addEventListener('change', (e) => showSettingsMsg(`Email notifications ${e.target.checked ? 'ON' : 'OFF'}`));
+    }
+    if(autoSaveToggle) {
+        autoSaveToggle.addEventListener('change', (e) => showSettingsMsg(`Auto-save ${e.target.checked ? 'enabled' : 'disabled'}`));
+    }
+    if(darkModeToggle) {
+        darkModeToggle.addEventListener('change', (e) => {
+            if(e.target.checked) {
+                document.body.style.background = "#1e1a24";
+                document.querySelector('.dashboard').style.background = "rgba(30, 26, 36, 0.85)";
+                document.querySelector('.sidebar').style.background = "rgba(45, 38, 50, 0.96)";
+                showSettingsMsg("🌙 Dark mode activated - cozy vibes!");
+            } else {
+                document.body.style.background = "linear-gradient(145deg, #fef5e8 0%, #ffe6f0 100%)";
+                document.querySelector('.dashboard').style.background = "rgba(255, 248, 245, 0.7)";
+                document.querySelector('.sidebar').style.background = "rgba(255, 245, 240, 0.98)";
+                showSettingsMsg("☀️ Light mode restored - cute and bright!");
+            }
+        });
+    }
+    
+    if(updateUsernameBtn) {
+        updateUsernameBtn.addEventListener('click', () => {
+            let newName = usernameInput.value.trim();
+            if(newName === "") newName = "Azka Ehsan";
+            const nameParts = newName.split(' ');
+            const firstName = nameParts[0];
+            const lastName = nameParts.slice(1).join(' ') || 'Ehsan';
+            if(sidebarNameH2) sidebarNameH2.innerHTML = `${firstName} <span style="font-weight:500;">${lastName}</span> <span class="cute-emoji">🌸</span>`;
+            if(profileNameDisplay) profileNameDisplay.innerHTML = `${newName} <span>🎀</span>`;
+            showSettingsMsg(`✅ Name updated to ${newName} ✨`);
+        });
+    }
+    
+    if(langSelect) {
+        langSelect.addEventListener('change', (e) => {
+            langMsg.innerText = `🌐 Language set to ${e.target.value} 💖`;
+            setTimeout(() => { langMsg.innerText = ''; }, 1800);
+        });
+    }
+    
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const profileFeedbackDiv = document.getElementById('profileFeedback');
+    if(editProfileBtn) {
+        editProfileBtn.addEventListener('click', () => {
+            profileFeedbackDiv.style.display = 'block';
+            profileFeedbackDiv.innerHTML = '✏️ Profile editor coming soon! Azka\'s cute profile will have more features 🎀';
+            setTimeout(() => { profileFeedbackDiv.style.display = 'none'; }, 2200);
+        });
+    }
+    
+    const logoutBtn = document.getElementById('logoutBtn');
+    if(logoutBtn) {
+        logoutBtn.addEventListener('click', () => { 
+            alert("🌸 Bye bye! Come back soon, Azka! 💖"); 
+            activateView('home'); 
+        });
+    }
+    
+    const refreshInsights = document.getElementById('refreshInsights');
+    if(refreshInsights) {
+        refreshInsights.addEventListener('click', () => {
+            const insightBox = document.querySelector('#insightsView .welcome-card div[style*="background"]');
+            if(insightBox) {
+                insightBox.innerHTML = `<div>✅ Completed tasks: ${Math.floor(Math.random() * 50) + 18}</div>
+                                        <div>⭐ Design reviews: ${Math.floor(Math.random() * 14) + 5}</div>
+                                        <div>📅 Upcoming deadlines: ${Math.floor(Math.random() * 6) + 1}</div>
+                                        <div>🎀 Creative sessions: ${Math.floor(Math.random() * 10) + 3}</div>`;
+            }
+        });
+    }
+    
+    // Set default layout
+    setLayout('iphone');
+    
+    console.log("✨ Cute Azka Dashboard Ready | Side column menu | 3 working screen layouts | Adorable profile pic");
+</script>
+</body>
+</html>
+```
